@@ -15,7 +15,9 @@ window.SITE_DEFAULTS = {
   colors: {
     primary: '#C9A87C', primaryDark: '#A88B5E', secondary: '#F8F1E9',
     accent: '#E8D5C4', text: '#2C2C2C', textLight: '#6B6B6B',
-    bg: '#FDFBF8', white: '#FFFFFF', dark: '#1A1A1A'
+    bg: '#FDFBF8', white: '#FFFFFF', dark: '#1A1A1A', card: '#FFFFFF',
+    navbarBg: 'rgba(253,251,248,0.96)',
+    footerBg: '#1A1A1A', footerText: '#C9A87C'
   },
   hero: {
     title: 'Kendinizi Ödüllendirin',
