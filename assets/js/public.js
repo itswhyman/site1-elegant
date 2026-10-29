@@ -9,30 +9,21 @@
   const md = document.querySelector('meta[name="description"]');
   if (md) md.content = cfg.seo?.description || cfg.business.tagline;
 
-  // Logo — works for text OR image
   const logoEl = document.getElementById('logo');
-  if (cfg.business.logoImage) {
-    logoEl.innerHTML = `<img src="${cfg.business.logoImage}" alt="${cfg.business.name}">`;
-  } else {
-    logoEl.textContent = cfg.business.logoText || cfg.business.name;
-  }
+  if (cfg.business.logoImage) logoEl.innerHTML = `<img src="${cfg.business.logoImage}" alt="${cfg.business.name}">`;
+  else logoEl.textContent = cfg.business.logoText || cfg.business.name;
   document.getElementById('footer-logo').textContent = cfg.business.logoText || cfg.business.name;
   document.getElementById('footer-tagline').textContent = cfg.business.tagline;
   document.getElementById('footer-copy').textContent = `© ${new Date().getFullYear()} ${cfg.business.name}. Tüm hakları saklıdır.`;
 
-  // Hero
   document.getElementById('hero-title').textContent = cfg.hero.title;
   document.getElementById('hero-sub').textContent = cfg.hero.subtitle;
   const heroCta = document.getElementById('hero-cta');
   heroCta.textContent = cfg.hero.ctaText;
   heroCta.href = cfg.hero.ctaLink || '#iletisim';
   const heroBg = document.getElementById('hero-bg');
-  if (cfg.hero.image) {
-    heroBg.style.backgroundImage = `url(${cfg.hero.image})`;
-    heroBg.style.opacity = Math.max(0.85, 1 - (cfg.hero.overlay || 0.15));
-  }
+  if (cfg.hero.image) { heroBg.style.backgroundImage = `url(${cfg.hero.image})`; heroBg.style.opacity = Math.max(0.85, 1 - (cfg.hero.overlay || 0.15)); }
 
-  // Services
   const servicesGrid = document.getElementById('services-grid');
   const formServices = document.getElementById('form-services');
   formServices.innerHTML = '<option value="">Hizmet seçin</option>';
@@ -52,7 +43,6 @@
     formServices.innerHTML += `<option>${esc(s.title)}</option>`;
   });
 
-  // Gallery
   const galleryGrid = document.getElementById('gallery-grid');
   (cfg.gallery || []).forEach(g => {
     const fig = document.createElement('figure');
@@ -61,14 +51,12 @@
     galleryGrid.appendChild(fig);
   });
 
-  // About
   document.getElementById('about-title').textContent = cfg.about.title;
   document.getElementById('about-text').textContent = cfg.about.text;
   const feats = document.getElementById('about-features');
   (cfg.about.features || []).forEach(f => feats.innerHTML += `<li>${esc(f)}</li>`);
   if (cfg.about.image) document.getElementById('about-img').src = cfg.about.image;
 
-  // Testimonials (approved only)
   const testiGrid = document.getElementById('testi-grid');
   (cfg.testimonials || []).filter(t => t.approved !== false).forEach(t => {
     testiGrid.innerHTML += `
@@ -82,7 +70,6 @@
       </figure>`;
   });
 
-  // Contact
   const b = cfg.business;
   document.getElementById('contact-info').innerHTML = `
     <div class="info-item"><strong>Telefon</strong><a href="tel:${b.phone.replace(/\s/g,'')}">${esc(b.phone)}</a></div>
@@ -96,14 +83,12 @@
   if (b.social?.facebook) socialEl.innerHTML += `<a href="${b.social.facebook}" target="_blank" rel="noopener">Facebook</a>`;
   if (b.social?.tiktok) socialEl.innerHTML += `<a href="${b.social.tiktok}" target="_blank" rel="noopener">TikTok</a>`;
 
-  // Contact form
   document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
     alert('Teşekkürler! En kısa sürede dönüş yapacağız.');
     e.target.reset();
   });
 
-  // ---- Star picker init ----
   document.querySelectorAll('.star-picker').forEach(widget => {
     const btns = widget.querySelectorAll('.star-btn');
     const hidden = widget.closest('form').querySelector('input[name="rating"]');
@@ -122,7 +107,6 @@
     });
   });
 
-  // Review form
   document.getElementById('review-form').addEventListener('submit', e => {
     e.preventDefault();
     const f = e.target;
@@ -146,6 +130,17 @@
     }
   });
 
+  // ---- Navbar scroll ----
+  const header = document.getElementById('header');
+  if (header) {
+    const toggleHeader = () => {
+      if (window.scrollY > 60) header.classList.add('is-scrolled');
+      else header.classList.remove('is-scrolled');
+    };
+    window.addEventListener('scroll', toggleHeader, { passive: true });
+    toggleHeader();
+  }
+
   // ---- Animations ----
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
@@ -165,13 +160,13 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
     }, { threshold: 0.08, rootMargin: '0px 0px 5% 0px' });
 
-    document.querySelectorAll('.menu-item').forEach((el, i) => { el.style.transitionDelay = (i * 90) + 'ms'; io.observe(el); });
+    const svcDelay = window.innerWidth < 780 ? 50 : 90;
+    document.querySelectorAll('.menu-item').forEach((el, i) => { el.style.transitionDelay = (i * svcDelay) + 'ms'; io.observe(el); });
     document.querySelectorAll('.gallery-item').forEach((el, i) => { el.style.transitionDelay = (i * 110) + 'ms'; io.observe(el); });
     document.querySelectorAll('.quote-item').forEach((el, i) => { el.style.transitionDelay = (i * 120) + 'ms'; io.observe(el); });
     const aboutImg = document.getElementById('about-img'); if (aboutImg) io.observe(aboutImg);
     const aboutFeats = document.getElementById('about-features'); if (aboutFeats) io.observe(aboutFeats);
 
-    // FALLBACK: force reveal after 2.5s
     setTimeout(() => {
       document.querySelectorAll('.menu-item, .gallery-item, .quote-item, .about-img, .about-features').forEach(el => el.classList.add('is-visible'));
     }, 2500);
