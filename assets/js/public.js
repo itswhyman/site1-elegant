@@ -130,14 +130,20 @@
     }
   });
 
-  // ---- Navbar scroll ----
+  // ---- Navbar scroll: 40px sonrası krem + blur ----
   const header = document.getElementById('header');
   if (header) {
+    let ticking = false;
     const toggleHeader = () => {
-      if (window.scrollY > 60) header.classList.add('is-scrolled');
-      else header.classList.remove('is-scrolled');
+      const scrolled = window.scrollY > 40;
+      header.classList.toggle('is-scrolled', scrolled);
+      ticking = false;
     };
-    window.addEventListener('scroll', toggleHeader, { passive: true });
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      requestAnimationFrame(toggleHeader);
+      ticking = true;
+    }, { passive: true });
     toggleHeader();
   }
 
