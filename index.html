@@ -11,7 +11,6 @@
 </head>
 <body class="site-elegant">
 
-  <!-- SITE 1: Full-width top sticky navbar -->
   <header class="header header--top-full" id="header">
     <div class="container header-inner">
       <a href="#" class="logo" id="logo">LUMINA</a>
@@ -34,8 +33,8 @@
       <div class="hero-bg" id="hero-bg"></div>
       <div class="container hero-content">
         <p class="hero-eyebrow">Güzellik & Bakım</p>
-        <h1 id="hero-title">Kendinizi Ödüllendirin</h1>
-        <p class="hero-sub" id="hero-sub"></p>
+        <h1 id="hero-title" data-split="lines">Kendinizi Ödüllendirin</h1>
+        <p class="hero-sub" id="hero-sub" data-split="fade"></p>
         <a href="#iletisim" class="btn btn-primary" id="hero-cta">Randevu Al</a>
       </div>
     </section>
@@ -43,8 +42,8 @@
     <section id="hizmetler" class="services">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">Hizmetlerimiz</span>
-          <h2>Size özel bakım deneyimi</h2>
+          <span class="section-label" data-reveal="up">Hizmetlerimiz</span>
+          <h2 data-reveal="up">Size özel bakım deneyimi</h2>
         </div>
         <div class="services-grid" id="services-grid"></div>
       </div>
@@ -53,8 +52,8 @@
     <section id="galeri" class="gallery">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">Galeri</span>
-          <h2>Atmosferimizden kareler</h2>
+          <span class="section-label" data-reveal="up">Galeri</span>
+          <h2 data-reveal="up">Atmosferimizden kareler</h2>
         </div>
         <div class="gallery-grid" id="gallery-grid"></div>
       </div>
@@ -63,13 +62,13 @@
     <section id="hakkimizda" class="about">
       <div class="container about-grid">
         <div class="about-text">
-          <span class="section-label">Hakkımızda</span>
-          <h2 id="about-title"></h2>
-          <p id="about-text"></p>
-          <ul class="about-features" id="about-features"></ul>
+          <span class="section-label" data-reveal="up">Hakkımızda</span>
+          <h2 id="about-title" data-reveal="up"></h2>
+          <p id="about-text" data-reveal="up"></p>
+          <ul class="about-features" id="about-features" data-reveal="up"></ul>
         </div>
         <div class="about-visual">
-          <img id="about-img" src="" alt="Salon" class="about-img">
+          <img id="about-img" src="" alt="Salon" class="about-img" data-reveal="image">
         </div>
       </div>
     </section>
@@ -77,8 +76,8 @@
     <section id="yorumlar" class="testimonials">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">Yorumlar</span>
-          <h2>Misafirlerimiz ne diyor?</h2>
+          <span class="section-label" data-reveal="up">Yorumlar</span>
+          <h2 data-reveal="up">Misafirlerimiz ne diyor?</h2>
         </div>
         <div class="testi-grid" id="testi-grid"></div>
       </div>
@@ -87,12 +86,12 @@
     <section id="iletisim" class="contact">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">İletişim</span>
-          <h2>Randevu için bize ulaşın</h2>
+          <span class="section-label" data-reveal="up">İletişim</span>
+          <h2 data-reveal="up">Randevu için bize ulaşın</h2>
         </div>
         <div class="contact-grid">
-          <div class="contact-info" id="contact-info"></div>
-          <form class="contact-form" id="contact-form">
+          <div class="contact-info" id="contact-info" data-reveal="up"></div>
+          <form class="contact-form" id="contact-form" data-reveal="up">
             <input type="text" name="name" placeholder="Adınız" required>
             <input type="tel" name="phone" placeholder="Telefon" required>
             <select name="service" id="form-services"></select>
@@ -118,5 +117,6 @@
   <script src="assets/js/defaults.js"></script>
   <script src="assets/js/storage.js"></script>
   <script src="assets/js/public.js"></script>
+  <script src="assets/js/animations.js"></script>
 </body>
 </html>
