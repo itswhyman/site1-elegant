@@ -1,22 +1,26 @@
 (function () {
   const cfg = Storage.load();
-  const root = document.documentElement;
   Object.keys(cfg.colors || {}).forEach(k => {
     const cssKey = k.replace(/([A-Z])/g, '-$1').toLowerCase();
-    root.style.setProperty('--' + cssKey, cfg.colors[k]);
+    document.documentElement.style.setProperty('--' + cssKey, cfg.colors[k]);
   });
 
   document.title = cfg.seo?.title || cfg.business.name;
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.content = cfg.seo?.description || cfg.business.tagline;
+  const md = document.querySelector('meta[name="description"]');
+  if (md) md.content = cfg.seo?.description || cfg.business.tagline;
 
+  // Logo — works for text OR image
   const logoEl = document.getElementById('logo');
-  if (cfg.business.logoImage) logoEl.innerHTML = `<img src="${cfg.business.logoImage}" alt="${cfg.business.name}" style="height:36px">`;
-  else logoEl.textContent = cfg.business.logoText || cfg.business.name;
+  if (cfg.business.logoImage) {
+    logoEl.innerHTML = `<img src="${cfg.business.logoImage}" alt="${cfg.business.name}">`;
+  } else {
+    logoEl.textContent = cfg.business.logoText || cfg.business.name;
+  }
   document.getElementById('footer-logo').textContent = cfg.business.logoText || cfg.business.name;
   document.getElementById('footer-tagline').textContent = cfg.business.tagline;
   document.getElementById('footer-copy').textContent = `© ${new Date().getFullYear()} ${cfg.business.name}. Tüm hakları saklıdır.`;
 
+  // Hero
   document.getElementById('hero-title').textContent = cfg.hero.title;
   document.getElementById('hero-sub').textContent = cfg.hero.subtitle;
   const heroCta = document.getElementById('hero-cta');
@@ -28,7 +32,7 @@
     heroBg.style.opacity = Math.max(0.85, 1 - (cfg.hero.overlay || 0.15));
   }
 
-  // Hizmetler — menü listesi
+  // Services
   const servicesGrid = document.getElementById('services-grid');
   const formServices = document.getElementById('form-services');
   formServices.innerHTML = '<option value="">Hizmet seçin</option>';
@@ -48,23 +52,23 @@
     formServices.innerHTML += `<option>${esc(s.title)}</option>`;
   });
 
-  // Galeri — bento
+  // Gallery
   const galleryGrid = document.getElementById('gallery-grid');
   (cfg.gallery || []).forEach(g => {
     const fig = document.createElement('figure');
     fig.className = 'gallery-item';
-    fig.innerHTML = `<img src="${g.url}" alt="${esc(g.alt)}" loading="lazy">`;
+    fig.innerHTML = `<img src="${g.url}" alt="${esc(g.alt)}" loading="lazy" onerror="this.style.background='#ddd';this.style.minHeight='100%'">`;
     galleryGrid.appendChild(fig);
   });
 
-  // Hakkımızda
+  // About
   document.getElementById('about-title').textContent = cfg.about.title;
   document.getElementById('about-text').textContent = cfg.about.text;
   const feats = document.getElementById('about-features');
   (cfg.about.features || []).forEach(f => feats.innerHTML += `<li>${esc(f)}</li>`);
   if (cfg.about.image) document.getElementById('about-img').src = cfg.about.image;
 
-  // Yorumlar (onaylı olanlar)
+  // Testimonials (approved only)
   const testiGrid = document.getElementById('testi-grid');
   (cfg.testimonials || []).filter(t => t.approved !== false).forEach(t => {
     testiGrid.innerHTML += `
@@ -78,7 +82,7 @@
       </figure>`;
   });
 
-  // İletişim
+  // Contact
   const b = cfg.business;
   document.getElementById('contact-info').innerHTML = `
     <div class="info-item"><strong>Telefon</strong><a href="tel:${b.phone.replace(/\s/g,'')}">${esc(b.phone)}</a></div>
@@ -99,32 +103,53 @@
     e.target.reset();
   });
 
-  // Yorum ekleme formu
+  // ---- Star picker init ----
+  document.querySelectorAll('.star-picker').forEach(widget => {
+    const btns = widget.querySelectorAll('.star-btn');
+    const hidden = widget.closest('form').querySelector('input[name="rating"]');
+    let current = parseInt(widget.dataset.rating) || 5;
+    function paint(v) { btns.forEach((b, i) => b.classList.toggle('filled', i < v)); }
+    paint(current);
+    btns.forEach((btn, i) => {
+      btn.addEventListener('mouseenter', () => paint(i + 1));
+      btn.addEventListener('mouseleave', () => paint(current));
+      btn.addEventListener('click', () => {
+        current = i + 1;
+        widget.dataset.rating = current;
+        if (hidden) hidden.value = current;
+        paint(current);
+      });
+    });
+  });
+
+  // Review form
   document.getElementById('review-form').addEventListener('submit', e => {
     e.preventDefault();
     const f = e.target;
-    const newReview = {
+    const review = {
       id: 't' + Date.now(),
       name: f.name.value.trim(),
       text: f.text.value.trim(),
       rating: Math.min(5, Math.max(1, parseInt(f.rating.value) || 5)),
       approved: false
     };
-    if (!newReview.name || !newReview.text) return;
+    if (!review.name || !review.text) return;
     const fresh = Storage.load();
     if (!fresh.testimonials) fresh.testimonials = [];
-    fresh.testimonials.push(newReview);
+    fresh.testimonials.push(review);
     if (Storage.save(fresh)) {
       alert('Yorumunuz alındı! Yönetici onayından sonra yayınlanacak.');
       f.reset();
+      f.querySelectorAll('.star-btn').forEach((b, i) => b.classList.toggle('filled', i < 5));
+      f.querySelector('input[name="rating"]').value = 5;
+      f.querySelector('.star-picker').dataset.rating = 5;
     }
   });
 
   // ---- Animations ----
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
-  // Hero reveal
   requestAnimationFrame(() => {
     document.getElementById('header')?.classList.add('is-loaded');
     document.querySelector('.hero-content')?.classList.add('is-visible');
@@ -135,39 +160,30 @@
     document.getElementById('hero-cta')?.classList.add('is-visible');
   }, 400);
 
-  if (!reduceMotion) {
+  if (!reduce) {
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px 5% 0px' });
 
-    document.querySelectorAll('.menu-item').forEach((el, i) => {
-      el.style.transitionDelay = (i * 110) + 'ms';
-      io.observe(el);
-    });
-    document.querySelectorAll('.gallery-item').forEach((el, i) => {
-      el.style.transitionDelay = (i * 130) + 'ms';
-      io.observe(el);
-    });
-    document.querySelectorAll('.quote-item').forEach((el, i) => {
-      el.style.transitionDelay = (i * 140) + 'ms';
-      io.observe(el);
-    });
-    document.getElementById('about-img') && io.observe(document.getElementById('about-img'));
-    document.getElementById('about-features') && io.observe(document.getElementById('about-features'));
+    document.querySelectorAll('.menu-item').forEach((el, i) => { el.style.transitionDelay = (i * 90) + 'ms'; io.observe(el); });
+    document.querySelectorAll('.gallery-item').forEach((el, i) => { el.style.transitionDelay = (i * 110) + 'ms'; io.observe(el); });
+    document.querySelectorAll('.quote-item').forEach((el, i) => { el.style.transitionDelay = (i * 120) + 'ms'; io.observe(el); });
+    const aboutImg = document.getElementById('about-img'); if (aboutImg) io.observe(aboutImg);
+    const aboutFeats = document.getElementById('about-features'); if (aboutFeats) io.observe(aboutFeats);
 
-    // Parallax
+    // FALLBACK: force reveal after 2.5s
+    setTimeout(() => {
+      document.querySelectorAll('.menu-item, .gallery-item, .quote-item, .about-img, .about-features').forEach(el => el.classList.add('is-visible'));
+    }, 2500);
+
     if (!isMobile) {
-      const heroBg = document.getElementById('hero-bg');
+      const bg = document.getElementById('hero-bg');
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (ticking) return;
         requestAnimationFrame(() => {
           const y = window.scrollY;
-          if (y < window.innerHeight * 1.2 && heroBg) {
-            heroBg.style.transform = `translateY(${y * 0.22}px) scale(1.06)`;
-          }
+          if (y < window.innerHeight * 1.2 && bg) bg.style.transform = `translateY(${y * 0.2}px) scale(1.06)`;
           ticking = false;
         });
         ticking = true;
@@ -177,7 +193,5 @@
     document.querySelectorAll('.menu-item, .gallery-item, .quote-item, .about-img, .about-features').forEach(el => el.classList.add('is-visible'));
   }
 
-  function esc(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 })();

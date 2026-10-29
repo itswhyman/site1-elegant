@@ -29,18 +29,18 @@
   </header>
 
   <main>
-    <!-- HERO (korundu) -->
     <section class="hero" id="hero">
       <div class="hero-bg" id="hero-bg"></div>
-      <div class="container hero-content">
-        <p class="hero-eyebrow">Güzellik & Bakım</p>
-        <h1 id="hero-title">Kendinizi Ödüllendirin</h1>
-        <p class="hero-sub" id="hero-sub"></p>
-        <a href="#iletisim" class="btn btn-primary" id="hero-cta">Randevu Al</a>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Güzellik & Bakım</p>
+          <h1 id="hero-title">Kendinizi Ödüllendirin</h1>
+          <p class="hero-sub" id="hero-sub"></p>
+          <a href="#iletisim" class="btn btn-primary" id="hero-cta">Randevu Al</a>
+        </div>
       </div>
     </section>
 
-    <!-- HİZMETLER: Editoryal Numaralı Liste -->
     <section id="hizmetler" class="services">
       <div class="container">
         <header class="editorial-head">
@@ -51,7 +51,6 @@
       </div>
     </section>
 
-    <!-- GALERİ: Bento Mozaik -->
     <section id="galeri" class="gallery">
       <div class="container">
         <header class="editorial-head">
@@ -62,7 +61,6 @@
       <div class="bento-mosaic" id="gallery-grid"></div>
     </section>
 
-    <!-- HAKKIMIZDA: Editoryal Split (offset çerçeve) -->
     <section id="hakkimizda" class="about">
       <div class="container editorial-split">
         <div class="about-visual">
@@ -78,7 +76,6 @@
       </div>
     </section>
 
-    <!-- YORUMLAR: Pull-Quote + Yorum Formu -->
     <section id="yorumlar" class="testimonials">
       <div class="container">
         <header class="editorial-head center">
@@ -91,7 +88,17 @@
           <h3 class="review-form-title">Deneyimini paylaş</h3>
           <form class="review-form" id="review-form">
             <input type="text" name="name" placeholder="Adın" required maxlength="40">
-            <input type="number" name="rating" placeholder="Puan (1-5)" min="1" max="5" value="5" required>
+            <div class="star-picker-wrap">
+              <span class="star-picker-label">Puanın:</span>
+              <div class="star-picker" data-rating="5">
+                <button type="button" class="star-btn" data-v="1" aria-label="1 yıldız"></button>
+                <button type="button" class="star-btn" data-v="2" aria-label="2 yıldız"></button>
+                <button type="button" class="star-btn" data-v="3" aria-label="3 yıldız"></button>
+                <button type="button" class="star-btn" data-v="4" aria-label="4 yıldız"></button>
+                <button type="button" class="star-btn" data-v="5" aria-label="5 yıldız"></button>
+              </div>
+              <input type="hidden" name="rating" value="5">
+            </div>
             <textarea name="text" placeholder="Yorumun..." rows="3" required maxlength="300"></textarea>
             <button type="submit" class="btn btn-primary">Yorumu Gönder</button>
           </form>
@@ -99,21 +106,22 @@
       </div>
     </section>
 
-    <!-- İLETİŞİM: Editoryal Split -->
     <section id="iletisim" class="contact">
-      <div class="container contact-editorial">
-        <div class="contact-left">
-          <div class="index-mark"><span class="index-num">05</span><span class="index-line"></span><span class="index-label">İletişim</span></div>
-          <h2 class="contact-headline">Randevu için<br><em>bize ulaşın</em></h2>
-          <div class="contact-info" id="contact-info"></div>
+      <div class="contact-inner">
+        <div class="container contact-editorial">
+          <div class="contact-left">
+            <div class="index-mark"><span class="index-num">05</span><span class="index-line"></span><span class="index-label">İletişim</span></div>
+            <h2 class="contact-headline">Randevu için<br><em>bize ulaşın</em></h2>
+            <div class="contact-info" id="contact-info"></div>
+          </div>
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Adınız" required>
+            <input type="tel" name="phone" placeholder="Telefon" required>
+            <select name="service" id="form-services"></select>
+            <textarea name="message" rows="4" placeholder="Mesajınız"></textarea>
+            <button type="submit" class="btn btn-primary">Gönder</button>
+          </form>
         </div>
-        <form class="contact-form" id="contact-form">
-          <input type="text" name="name" placeholder="Adınız" required>
-          <input type="tel" name="phone" placeholder="Telefon" required>
-          <select name="service" id="form-services"></select>
-          <textarea name="message" rows="4" placeholder="Mesajınız"></textarea>
-          <button type="submit" class="btn btn-primary">Gönder</button>
-        </form>
       </div>
     </section>
   </main>
