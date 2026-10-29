@@ -12,19 +12,24 @@ h1, h2, h3, .logo, .logo-text {
 }
 .container { width: min(1120px, 92%); margin-inline: auto; }
 
-.header {
+/* SITE 1: Full-width top sticky navbar */
+.header--top-full {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(253,251,248,0.92);
+  width: 100%;
+  background: rgba(253,251,248,0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--accent, #E8D5C4);
 }
 .header-inner {
-  display: flex; align-items: center; justify-content: space-between; height: 72px;
+  display: flex; align-items: center; justify-content: space-between; height: 76px;
 }
 .logo { font-size: 1.55rem; letter-spacing: 0.18em; color: var(--primary-dark, #A88B5E); text-decoration: none; }
-.nav { display: flex; gap: 1.8rem; }
-.nav a { text-decoration: none; color: var(--text); font-size: 0.93rem; transition: color .2s; }
-.nav a:hover { color: var(--primary-dark); }
+.nav--horizontal { display: flex; gap: 2rem; }
+.nav--horizontal a { text-decoration: none; color: var(--text); font-size: 0.93rem; transition: color .2s; }
+.nav--horizontal a:hover { color: var(--primary-dark); }
+.header-actions { display: flex; align-items: center; gap: 0.8rem; }
+.admin-link { color: var(--text-light); text-decoration: none; font-size: 1.1rem; opacity: 0.7; }
+.admin-link:hover { opacity: 1; color: var(--primary-dark); }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
@@ -112,7 +117,7 @@ h1, h2, h3, .logo, .logo-text {
 .footer-copy { font-size: .85rem; opacity: .6; }
 
 @media (max-width: 860px) {
-  .nav { display: none; }
+  .nav--horizontal { display: none; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .hero { min-height: 70vh; }
 }
