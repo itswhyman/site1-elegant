@@ -29,76 +29,91 @@
   </header>
 
   <main>
+    <!-- HERO (korundu) -->
     <section class="hero" id="hero">
       <div class="hero-bg" id="hero-bg"></div>
       <div class="container hero-content">
         <p class="hero-eyebrow">Güzellik & Bakım</p>
-        <h1 id="hero-title" data-split="lines">Kendinizi Ödüllendirin</h1>
-        <p class="hero-sub" id="hero-sub" data-split="fade"></p>
+        <h1 id="hero-title">Kendinizi Ödüllendirin</h1>
+        <p class="hero-sub" id="hero-sub"></p>
         <a href="#iletisim" class="btn btn-primary" id="hero-cta">Randevu Al</a>
       </div>
     </section>
 
+    <!-- HİZMETLER: Editoryal Numaralı Liste -->
     <section id="hizmetler" class="services">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-reveal="up">Hizmetlerimiz</span>
-          <h2 data-reveal="up">Size özel bakım deneyimi</h2>
-        </div>
-        <div class="services-grid" id="services-grid"></div>
+        <header class="editorial-head">
+          <div class="index-mark"><span class="index-num">01</span><span class="index-line"></span><span class="index-label">Hizmetler</span></div>
+          <h2 class="editorial-title">Size özel bakım menüsü</h2>
+        </header>
+        <div class="menu-list" id="services-grid"></div>
       </div>
     </section>
 
+    <!-- GALERİ: Bento Mozaik -->
     <section id="galeri" class="gallery">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-reveal="up">Galeri</span>
-          <h2 data-reveal="up">Atmosferimizden kareler</h2>
-        </div>
-        <div class="gallery-grid" id="gallery-grid"></div>
+        <header class="editorial-head">
+          <div class="index-mark"><span class="index-num">02</span><span class="index-line"></span><span class="index-label">Galeri</span></div>
+          <h2 class="editorial-title">Atmosferimizden kareler</h2>
+        </header>
       </div>
+      <div class="bento-mosaic" id="gallery-grid"></div>
     </section>
 
+    <!-- HAKKIMIZDA: Editoryal Split (offset çerçeve) -->
     <section id="hakkimizda" class="about">
-      <div class="container about-grid">
-        <div class="about-text">
-          <span class="section-label" data-reveal="up">Hakkımızda</span>
-          <h2 id="about-title" data-reveal="up"></h2>
-          <p id="about-text" data-reveal="up"></p>
-          <ul class="about-features" id="about-features" data-reveal="up"></ul>
-        </div>
+      <div class="container editorial-split">
         <div class="about-visual">
-          <img id="about-img" src="" alt="Salon" class="about-img" data-reveal="image">
+          <img id="about-img" src="" alt="Salon" class="about-img">
+          <div class="visual-frame"></div>
+        </div>
+        <div class="about-text">
+          <div class="index-mark"><span class="index-num">03</span><span class="index-line"></span><span class="index-label">Hakkımızda</span></div>
+          <h2 id="about-title"></h2>
+          <p id="about-text"></p>
+          <ul class="about-features" id="about-features"></ul>
         </div>
       </div>
     </section>
 
+    <!-- YORUMLAR: Pull-Quote + Yorum Formu -->
     <section id="yorumlar" class="testimonials">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-reveal="up">Yorumlar</span>
-          <h2 data-reveal="up">Misafirlerimiz ne diyor?</h2>
+        <header class="editorial-head center">
+          <div class="index-mark center"><span class="index-num">04</span><span class="index-line"></span><span class="index-label">Yorumlar</span></div>
+          <h2 class="editorial-title">Misafirlerimiz ne diyor?</h2>
+        </header>
+        <div class="quote-stack" id="testi-grid"></div>
+
+        <div class="review-form-wrap">
+          <h3 class="review-form-title">Deneyimini paylaş</h3>
+          <form class="review-form" id="review-form">
+            <input type="text" name="name" placeholder="Adın" required maxlength="40">
+            <input type="number" name="rating" placeholder="Puan (1-5)" min="1" max="5" value="5" required>
+            <textarea name="text" placeholder="Yorumun..." rows="3" required maxlength="300"></textarea>
+            <button type="submit" class="btn btn-primary">Yorumu Gönder</button>
+          </form>
         </div>
-        <div class="testi-grid" id="testi-grid"></div>
       </div>
     </section>
 
+    <!-- İLETİŞİM: Editoryal Split -->
     <section id="iletisim" class="contact">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-reveal="up">İletişim</span>
-          <h2 data-reveal="up">Randevu için bize ulaşın</h2>
+      <div class="container contact-editorial">
+        <div class="contact-left">
+          <div class="index-mark"><span class="index-num">05</span><span class="index-line"></span><span class="index-label">İletişim</span></div>
+          <h2 class="contact-headline">Randevu için<br><em>bize ulaşın</em></h2>
+          <div class="contact-info" id="contact-info"></div>
         </div>
-        <div class="contact-grid">
-          <div class="contact-info" id="contact-info" data-reveal="up"></div>
-          <form class="contact-form" id="contact-form" data-reveal="up">
-            <input type="text" name="name" placeholder="Adınız" required>
-            <input type="tel" name="phone" placeholder="Telefon" required>
-            <select name="service" id="form-services"></select>
-            <textarea name="message" rows="4" placeholder="Mesajınız (isteğe bağlı)"></textarea>
-            <button type="submit" class="btn btn-primary">Gönder</button>
-          </form>
-        </div>
+        <form class="contact-form" id="contact-form">
+          <input type="text" name="name" placeholder="Adınız" required>
+          <input type="tel" name="phone" placeholder="Telefon" required>
+          <select name="service" id="form-services"></select>
+          <textarea name="message" rows="4" placeholder="Mesajınız"></textarea>
+          <button type="submit" class="btn btn-primary">Gönder</button>
+        </form>
       </div>
     </section>
   </main>
@@ -117,6 +132,5 @@
   <script src="assets/js/defaults.js"></script>
   <script src="assets/js/storage.js"></script>
   <script src="assets/js/public.js"></script>
-  <script src="assets/js/animations.js"></script>
 </body>
 </html>
