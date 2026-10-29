@@ -51,10 +51,10 @@ window.SITE_DEFAULTS = {
     image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80'
   },
   services: [
-    { id: 's1', icon: '✨', title: 'Cilt Bakımı', desc: 'Kişiye özel cilt analizi ve profesyonel bakım protokolleri ile ışıltılı bir cilt.', price: '850 ₺’den', duration: '60 dk', visible: true },
-    { id: 's2', icon: '💄', title: 'Kalıcı Makyaj', desc: 'Kaş, eyeliner ve dudak uygulamalarıyla her sabah hazır bir görünüm.', price: '2.500 ₺’den', duration: '2 saat', visible: true },
-    { id: 's3', icon: '💇‍♀️', title: 'Saç Tasarımı', desc: 'Kesim, boya, ombre ve bakım uygulamalarıyla size özel saç stilleri.', price: '650 ₺’den', duration: '90 dk', visible: true },
-    { id: 's4', icon: '💅', title: 'Manikür & Pedikür', desc: 'Hijyenik ve uzun ömürlü tırnak bakımı, protez tırnak seçenekleri.', price: '450 ₺’den', duration: '45 dk', visible: true }
+    { id: 's1', icon: '01', title: 'Cilt Bakımı', desc: 'Kişiye özel cilt analizi ve profesyonel bakım protokolleri ile ışıltılı bir cilt.', price: '850 ₺’den', duration: '60 dk', visible: true },
+    { id: 's2', icon: '02', title: 'Kalıcı Makyaj', desc: 'Kaş, eyeliner ve dudak uygulamalarıyla her sabah hazır bir görünüm.', price: '2.500 ₺’den', duration: '2 saat', visible: true },
+    { id: 's3', icon: '03', title: 'Saç Tasarımı', desc: 'Kesim, boya, ombre ve bakım uygulamalarıyla size özel saç stilleri.', price: '650 ₺’den', duration: '90 dk', visible: true },
+    { id: 's4', icon: '04', title: 'Manikür & Pedikür', desc: 'Hijyenik ve uzun ömürlü tırnak bakımı, protez tırnak seçenekleri.', price: '450 ₺’den', duration: '45 dk', visible: true }
   ],
   gallery: [
     { id: 'g1', url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80', alt: 'Cilt bakımı' },

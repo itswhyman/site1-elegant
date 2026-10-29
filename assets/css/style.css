@@ -144,3 +144,74 @@ h1, h2, h3, .logo, .logo-text {
   .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .hero { min-height: 70vh; }
 }
+
+/* Full-viewport sections */
+.hero { min-height: 100vh; min-height: 100dvh; }
+.services, .gallery, .about, .testimonials, .contact {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.services .container,
+.gallery .container,
+.about .container,
+.testimonials .container,
+.contact .container { width: 100%; }
+
+/* Icon mark instead of emoji */
+.service-icon .icon-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: rgba(0,0,0,0.06);
+  color: inherit;
+  opacity: 0.85;
+}
+.site-modern .service-icon .icon-mark {
+  background: rgba(255,255,255,0.08);
+}
+.site-clinic .service-icon .icon-mark {
+  background: var(--secondary, #E9F5F3);
+  color: var(--primary, #2A9D8F);
+}
+
+/* Star rating without emoji */
+.stars { display: flex; gap: 0.25rem; margin-bottom: 0.6rem; }
+.stars .star {
+  width: 12px; height: 12px;
+  background: currentColor;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  opacity: 0.9;
+}
+
+/* Contact form polish */
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 700px) {
+  .hero { min-height: 100svh; }
+  .services, .gallery, .about, .testimonials, .contact {
+    min-height: auto;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
