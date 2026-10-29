@@ -37,7 +37,7 @@ window.SITE_DEFAULTS = {
     ctaText: 'Randevu Al',
     ctaLink: '#iletisim',
     image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80',
-    overlay: 0.35
+    overlay: 0.12
   },
   about: {
     title: 'Neden Lumina?',

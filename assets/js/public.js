@@ -34,7 +34,8 @@
   const heroBg = document.getElementById('hero-bg');
   if (cfg.hero.image) {
     heroBg.style.backgroundImage = `url(${cfg.hero.image})`;
-    heroBg.style.opacity = 1 - (cfg.hero.overlay || 0.3);
+    // Keep image vivid; slight dim only
+    heroBg.style.opacity = Math.max(0.85, 1 - (cfg.hero.overlay || 0.1));
   }
 
   // Services
